@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/intellij
 
 ### Intellij ###
@@ -66,5 +65,3 @@ fabric.properties
 
 # Sonarlint plugin
 .idea/sonarlint
-
-# End of https://www.gitignore.io/api/intellij
