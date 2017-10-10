@@ -1,7 +1,7 @@
 package pl.edu.agh.student.jakubada;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
+import java.io.Console;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -13,10 +13,12 @@ public class Test {
         boolean running = true;
 
         while (running) {
+            System.out.println("=====================================================================");
             System.out.print("1. Wczytaj punkt 3D\n" +
                     "2. Wyświetl wszystkie punkty\n" +
                     "3. Oblicz odległość\n" +
                     "4. Zakończ\n");
+            System.out.println("=====================================================================");
 
             System.out.print("Wybrana Opcja:");
             int selected = scanner.nextInt();
@@ -34,13 +36,16 @@ public class Test {
                     System.out.print("Z: ");
                     double z = scanner.nextDouble();
 
-                    punkty.push(new Punkt3D(x, y, z));
+                    punkty.add(new Punkt3D(x, y, z));
                     break;
                 case 2:
+                    System.out.println("=====================================================================");
                     for (Punkt3D punkt :
                             punkty) {
+                        System.out.println("Lista punktów: ");
                         System.out.println(punkty.indexOf(punkt) + ": " + punkt.toString());
                     }
+                    System.out.println("=====================================================================");
                     break;
                 case 3:
                     System.out.println("Oto dostępne do wybrania punkty:");

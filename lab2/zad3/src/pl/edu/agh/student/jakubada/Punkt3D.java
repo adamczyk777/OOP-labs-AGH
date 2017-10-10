@@ -22,6 +22,6 @@ public class Punkt3D extends Punkt2D {
 
     @Override
     public String toString() {
-        return "X: " + super.getX() + "Y: " + super.getY() + "Z: " + this.getZ();
+        return "X = " + super.getX() + " Y = " + super.getY() + " Z = " + this.getZ();
     }
 }
