@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Jakub Adamczyk on 10.10.2017
  */
+
 public class EmailMessage {
 
     private String from; //required (must be e-mail)
@@ -21,10 +22,8 @@ public class EmailMessage {
     private LinkedList<String> cc; //optional
     private LinkedList<String> bcc; // optional
 
-    //Przykładowy konstruktor (można założyć, że pola opcjonalne mogą być null)
-
-
-    public EmailMessage(String from, LinkedList<String> to, String subject, String content, String mimeType, LinkedList<String> cc, LinkedList<String> bcc) {
+//    konstruktor używany przez buildera jest prywatny zawsze musimy użyć interfejsu buildera do stworzenia obiektu
+    private EmailMessage(String from, LinkedList<String> to, String subject, String content, String mimeType, LinkedList<String> cc, LinkedList<String> bcc) {
         this.from = from;
         this.to = to;
         this.subject = subject;
@@ -34,6 +33,7 @@ public class EmailMessage {
         this.bcc = bcc;
     }
 
+//    Method that sends email from gmail server
     public void send() {
         Properties props = System.getProperties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -46,7 +46,7 @@ public class EmailMessage {
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, "adamczyk777");
+                return new PasswordAuthentication("adamczykjavax@gmail.com", "adamczyk777");
             }
         });
 //        Composing the message
@@ -107,8 +107,9 @@ public class EmailMessage {
         }
 
         public Builder addTo(String... tos) throws InvalidEmailMessageBuilderParameterData {
+//            Check if all match specific email pattern
             if (Arrays.stream(tos).allMatch(s -> validateEmail(s) && s != null)) {
-                this.newTo = new LinkedList<String>();
+                this.newTo = new LinkedList<>();
                 this.newTo.addAll(Arrays.asList(tos));
                 return this;
             } else {
@@ -158,12 +159,5 @@ public class EmailMessage {
                 throw new InvalidEmailMessageBuilderParameterData("Not all required fields were added to this build!");
             }
         }
-
-        public class InvalidEmailMessageBuilderParameterData extends Exception {
-            public InvalidEmailMessageBuilderParameterData(String message) {
-                super(message);
-            }
-        }
-
     }
 }
