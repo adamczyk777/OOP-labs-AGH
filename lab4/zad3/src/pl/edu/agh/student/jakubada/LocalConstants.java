@@ -1,10 +1,14 @@
 package pl.edu.agh.student.jakubada;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class LocalConstants {
-    public static final Map<Character, Integer> POLYBIUS_MAP = new HashMap<>();
+    public static final BiMap<Character, Integer> POLYBIUS_MAP = HashBiMap.create();
+    public static final BiMap<Integer, Character> POLYBIUS_MAP_INVERSE;
 
     static {
         POLYBIUS_MAP.put('a', 11);
@@ -32,5 +36,6 @@ public class LocalConstants {
         POLYBIUS_MAP.put('x', 53);
         POLYBIUS_MAP.put('y', 54);
         POLYBIUS_MAP.put('z', 55);
+        POLYBIUS_MAP_INVERSE = POLYBIUS_MAP.inverse();
     }
 }
