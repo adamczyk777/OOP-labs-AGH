@@ -10,6 +10,11 @@ public class LocalConstants {
     public static final BiMap<Character, Integer> POLYBIUS_MAP = HashBiMap.create();
     public static final BiMap<Integer, Character> POLYBIUS_MAP_INVERSE;
 
+    // =================================================================================================================
+    // constants for ROT11 Method
+    private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+    private static final int ROTATION = 11;
+    // =================================================================================================================
     static {
         POLYBIUS_MAP.put('a', 11);
         POLYBIUS_MAP.put('b', 12);

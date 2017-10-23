@@ -10,8 +10,8 @@ public class Main {
         File output = new File("C:\\Users\\jadamczyk\\IdeaProjects\\programowanie-obiektowe-agh\\lab4\\zad3\\src\\pl\\edu\\agh\\student\\jakubada\\out.txt");
         File decrypted = new File("C:\\Users\\jadamczyk\\IdeaProjects\\programowanie-obiektowe-agh\\lab4\\zad3\\src\\pl\\edu\\agh\\student\\jakubada\\decrypted.txt");
         try {
-            Cryptographer.cryptfile(input, output, new Polibiusz());
-            Cryptographer.decryptfile(output, decrypted, new Polibiusz());
+            Cryptographer.cryptfile(input, output, new ROT11());
+            Cryptographer.decryptfile(output, decrypted, new ROT11());
         } catch (IOException e) {
             e.printStackTrace();
         }
