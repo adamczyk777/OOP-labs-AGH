@@ -3,11 +3,16 @@ package pl.edu.agh.student.jakubada;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+/** Klasa Polibiusz implementuje interfejs Algorithm
+ * służy do przechowywania algorytmu szyfrującego Polibiusza, udostepnia metody takie jak określa interfejs
+ * poza tym zawiera niezbędne prywatne statyczne stałe*/
+
 public class Polibiusz implements Algorithm {
 
     // Declaration of map required to encrypt and decrypt strings with codes according to polybius table
-    public static final BiMap<Character, Integer> polybiusMap = HashBiMap.create();
+    private static final BiMap<Character, Integer> polybiusMap = HashBiMap.create();
 
+    // Inicjalizacja wartości mapy
     static {
         polybiusMap.put('a', 11);
         polybiusMap.put('b', 12);
@@ -40,28 +45,28 @@ public class Polibiusz implements Algorithm {
     public String crypt(String toCrypt) {
         toCrypt = toCrypt.toLowerCase();
         toCrypt = toCrypt.replaceAll("j", "i");
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (char el : toCrypt.toCharArray()) {
             if (el == ' ') {
-                result = result.concat(" ");
+                result.append(" ");
             } else {
-                result = result.concat(polybiusMap.get(el).toString());
+                result.append(polybiusMap.get(el).toString());
             }
         }
-        return result;
+        return result.toString();
     }
 
     @Override
     public String decrypt(String toDecrypt) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         String[] splittedToDecrypt = toDecrypt.split(" ");
         for (String word : splittedToDecrypt) {
             for (int i = 0; i < word.length(); i += 2) {
-                result = result.concat(polybiusMap.inverse().get(Integer.parseInt(word.substring(i, i + 2))).toString());
+                result.append((polybiusMap.inverse().get(Integer.parseInt(word.substring(i, i + 2))).toString()));
             }
-            result = result.concat(" ");
+            result.append((" "));
         }
-        result = result.substring(0,result.length()-1);
-        return result;
+        result.setLength(result.length()-1);
+        return result.toString();
     }
 }

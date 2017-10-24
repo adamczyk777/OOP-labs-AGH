@@ -11,18 +11,19 @@ public class ROT11 implements Algorithm {
 
         // declare output shifted string
         String output = "";
+        StringBuilder stringBuilder = new StringBuilder();
 
         //iterate over letters
         for (char letter : input.toCharArray()) {
             if (letter == ' ') {
-                output += " ";
+                stringBuilder.append(" ");
             } else {
-                output += ALPHABET.charAt(
+                stringBuilder.append(ALPHABET.charAt(
                         (ALPHABET.indexOf(letter) + rotation + ALPHABET.length()) % ALPHABET.length()
-                );
+                ));
             }
         }
-        return output;
+        return stringBuilder.toString();
     }
 
     // normal rotation using helper method
