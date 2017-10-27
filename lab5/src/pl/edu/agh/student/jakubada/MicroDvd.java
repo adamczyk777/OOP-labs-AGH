@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * MicroDvd class is a class that handles operations
@@ -14,6 +16,15 @@ import java.util.Scanner;
  * are specified in Subtitle format interface
  */
 public class MicroDvd implements SubtitlesFormat {
+
+    // constant pattern for matching
+    private static final Pattern PATTERN = Pattern.compile("\\{([0-9]*)}\\{([0-9]*)}([^\\r\\n]*)");
+
+    /**
+     * Overriden method from the interface
+     * it adds just one more functionality over the interface
+     * that is validate static private method
+     */
     @Override
     public void delay(String in, String out, int delay, int fps) throws InvalidMethodArgumentsException, FileNotFoundException, InvalidSubtitlesFormatException {
         // Instantiating files from input paths
@@ -30,11 +41,26 @@ public class MicroDvd implements SubtitlesFormat {
             currentLine = scanner.nextLine();
             // subtitle format validation for each line
             if (validate(currentLine)) {
+                Matcher matcher = PATTERN.matcher(currentLine);
+                matcher.matches();
 
+                String newStartFrame = Integer.toString(Integer.parseInt(matcher.group(1)) + (delay/1000)*fps);
+                String newEndFrame = Integer.toString(Integer.parseInt(matcher.group(2)) + (delay/1000)*fps);
+
+                String newCurrentLine = "{"
+                        + newStartFrame
+                        + "}{"
+                        + newEndFrame
+                        +"}"
+                        + matcher.group(3);
+                writer.println(newCurrentLine);
             } else {
                 throw new InvalidSubtitlesFormatException();
             }
         }
+        // closing streams in order to files be able to be saved
+        scanner.close();
+        writer.close();
     }
 
     /**

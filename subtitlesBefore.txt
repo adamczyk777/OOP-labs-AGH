@@ -1,0 +1,7 @@
+{1446}{1493}Roger, transport.|This is Grissom gate control.
+{1494}{1521}Please download security codes.
+{1522}{1551}Downloading.
+{1552}{1622}Transport, I\'ve got two blips|inside your radar signature.
+{1622}{1653}They\'re hiding in your shadow.
+{1654}{1686}I don\'t see anything.
+{1808}{1875}This is gate control.|Battle stations.
