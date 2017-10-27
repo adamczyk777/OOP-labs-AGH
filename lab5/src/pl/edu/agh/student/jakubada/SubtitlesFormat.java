@@ -18,6 +18,6 @@ public interface SubtitlesFormat {
      * delay: delay of subtitles in milliseconds
      * fps: move framerate in frames per second
      */
-    void delay(String in, String out, int delay, int fps) throws InvalidMethodArgumentsException, FileNotFoundException;
+    void delay(String in, String out, int delay, int fps) throws InvalidMethodArgumentsException, FileNotFoundException, InvalidSubtitlesFormatException;
 }
 /*--------------------------------------------------------------------------------------------------------------------*/
