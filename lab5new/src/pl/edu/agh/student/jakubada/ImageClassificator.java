@@ -32,6 +32,7 @@ public class ImageClassificator {
         List<Map<String, Double>> imageRecognition = multiple.getImageRecognition();
 
         Map<String, String> results = new HashMap<>();
+        // simple max function to find entry with max double value
         int i = 0;
         for (Map<String, Double> map : imageRecognition) {
             Map.Entry<String, Double> maxEntry = null;
