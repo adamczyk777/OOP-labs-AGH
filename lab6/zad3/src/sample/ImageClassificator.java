@@ -1,4 +1,4 @@
-package pl.edu.agh.student.jakubada;
+package sample;
 
 import io.indico.Indico;
 import io.indico.api.results.BatchIndicoResult;
@@ -6,7 +6,6 @@ import io.indico.api.utils.IndicoException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +13,22 @@ import java.util.Map;
 public class ImageClassificator {
     private File folder;
     private Indico apiInstance;
+
+    public File getFolder() {
+        return folder;
+    }
+
+    public void setFolder(File folder) {
+        this.folder = folder;
+    }
+
+    public Indico getApiInstance() {
+        return apiInstance;
+    }
+
+    public void setApiInstance(Indico apiInstance) {
+        this.apiInstance = apiInstance;
+    }
 
     public ImageClassificator(String folderPath, String apiKey) throws IndicoException {
         this.folder = new File(folderPath);
