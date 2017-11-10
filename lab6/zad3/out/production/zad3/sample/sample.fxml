@@ -29,16 +29,24 @@
             <TextField
                     fx:id="apiKey"
                     GridPane.columnIndex="1"
-                    GridPane.rowIndex="0"/>
+                    GridPane.rowIndex="0"
+                    onKeyReleased="#disableClassify"/>
             <!--label text field for directory path-->
             <Label GridPane.columnIndex="0"
                    GridPane.rowIndex="1"
                    GridPane.halignment="CENTER"
                    text="Images directory path:"/>
-            <TextField fx:id="dirPath" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <TextField fx:id="dirPath"
+                       GridPane.columnIndex="1"
+                       GridPane.rowIndex="1"
+                       onKeyReleased="#disableClassify"/>
             <!--and a button for directory selection-->
-            <Button GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.halignment="RIGHT"
-                    text="Directory path chooser"/>
+            <Button fx:id="dirBtn"
+                    onAction="#handleDirectorySelection"
+                    GridPane.columnIndex="1"
+                    GridPane.rowIndex="2"
+                    GridPane.halignment="RIGHT"
+                    text="Choose directory"/>
         </GridPane>
     </center>
     <bottom>
@@ -46,8 +54,14 @@
             <padding>
                 <Insets bottom="10" right="10"/>
             </padding>
-            <Button text="Classify"/>
-            <Button text="Clear"/>
+            <Button fx:id="clearBtn"
+                    text="Clear"
+                    onAction="#handleClear"
+            />
+            <Button fx:id="submitBtn"
+                    text="Classify"
+                    onAction="#handleSubmit"
+            />
         </HBox>
     </bottom>
 </BorderPane>

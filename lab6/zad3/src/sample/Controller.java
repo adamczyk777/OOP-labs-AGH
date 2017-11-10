@@ -3,10 +3,15 @@ package sample;
 import io.indico.api.utils.IndicoException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,27 +23,58 @@ public class Controller {
     public TextField apiKey;
     @FXML
     public TextField dirPath;
+    @FXML
     public Button dirBtn;
+    @FXML
     public Button submitBtn;
+    @FXML
     public Button clearBtn;
 
+    @FXML
+    public void initialize() {
+        submitBtn.setDisable(true);
+    }
+
+    @FXML
     public void handleDirectorySelection(ActionEvent actionEvent) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Folder ze zdjęciami");
         File folder = directoryChooser.showDialog(new Stage());
-        dirPath.setText(folder.getAbsolutePath());
+        if (folder != null) {
+            dirPath.setText(folder.getAbsolutePath());
+            disableClassify();
+        }
     }
 
-    public void handleGetPhotosClick(ActionEvent actionEvent) {
-        try {
-            ImageClassificator classificator = new ImageClassificator(dirPath.getText(), apiKey.getText());
-            final Map<String, String> mostMatchingFeatureValues = classificator.getMostMatchingFeatureValues();
-            System.out.println(mostMatchingFeatureValues);
-            for (Map.Entry<String, String> element : mostMatchingFeatureValues.entrySet()) {
-                //handle adding cells
-            }
-        } catch (IndicoException e) {
-            e.printStackTrace();
+    @FXML
+    public void disableClassify() {
+        String text1 = apiKey.getText();
+        String text2 = dirPath.getText();
+
+        boolean disableButtons = text1.isEmpty() ||
+                text1.trim().isEmpty() ||
+                text2.isEmpty() ||
+                text2.trim().isEmpty();
+        submitBtn.setDisable(disableButtons);
+    }
+
+    @FXML
+    public void handleClear(ActionEvent actionEvent) {
+        dirPath.setText("");
+        apiKey.setText("");
+        disableClassify();
+    }
+
+    public void handleSubmit(ActionEvent actionEvent) {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("imagesList.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setTitle("Classified Images");
+            stage.setScene(new Scene(root1));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
