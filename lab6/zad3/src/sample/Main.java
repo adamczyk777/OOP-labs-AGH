@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static String dirPath = "";
+    public static String apiKey = "";
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));

@@ -33,6 +33,7 @@ public class Controller {
     @FXML
     public void initialize() {
         submitBtn.setDisable(true);
+        apiKey.setText("5357d5b1a333fd6a0cd4a19647f9f338");
     }
 
     @FXML
@@ -67,6 +68,8 @@ public class Controller {
 
     public void handleSubmit(ActionEvent actionEvent) {
         try{
+            Main.apiKey = apiKey.getText();
+            Main.dirPath = dirPath.getText();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("imagesList.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
@@ -78,5 +81,6 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }
