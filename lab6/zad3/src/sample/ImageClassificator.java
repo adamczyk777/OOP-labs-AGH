@@ -61,4 +61,25 @@ public class ImageClassificator {
         }
         return results;
     }
+
+    public Map<String, Map<String, Double>> getAllFeatureValues() throws IndicoException, IOException {
+        // Geting File paths
+        File[] photosFileList = folder.listFiles();
+        String[] photoPathList = new String[photosFileList.length];
+        for (int i = 0; i < photoPathList.length; i++) {
+            photoPathList[i] = photosFileList[i].getAbsolutePath();
+        }
+        // Api Call
+        BatchIndicoResult multiple = this.apiInstance.imageRecognition.predict(photoPathList);
+        List<Map<String, Double>> imageRecognition = multiple.getImageRecognition();
+
+        Map<String, Map<String, Double>> results = new HashMap<>();
+        // simple max function to find entry with max double valued
+        int i = 0;
+        for (Map<String, Double> map : imageRecognition) {
+            results.put(photoPathList[i], map);
+            i++;
+        }
+        return results;
+    }
 }
