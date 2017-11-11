@@ -77,7 +77,13 @@ public class ImageClassificator {
         // simple max function to find entry with max double valued
         int i = 0;
         for (Map<String, Double> map : imageRecognition) {
-            results.put(photoPathList[i], map);
+            Map<String, Double> resultMap = new HashMap<>();
+            for (Map.Entry<String, Double> entry : map.entrySet()) {
+                if (entry.getValue() > 0.01) {
+                    resultMap.put(entry.getKey(), entry.getValue());
+                }
+            }
+            results.put(photoPathList[i], resultMap);
             i++;
         }
         return results;
